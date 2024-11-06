@@ -1,0 +1,21 @@
+.left-container{
+    width:20vw;
+    height: 100vh;
+}
+
+button {
+    border: none;
+    border-radius: 50%;
+}
+
+.modal{
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    width: 55%;
+    height: 25%;
+}
