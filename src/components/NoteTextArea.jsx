@@ -2,22 +2,14 @@ import { useState } from "react"
 import submitNote from '../assets/Vector-arrow.png'
 import styles from './rightSection.module.css'
 
-const NoteTextArea=({allNotes,setAllNotes,selectedGroup})=>{
+const NoteTextArea=({ notes, updateGroupNotes })=>{
 
     const [note, setNote]=useState("")
 
-    const handleNoteSubmitClick=()=>{
-        const data=JSON.parse(localStorage.getItem('groupsData'))
-        data.map((item)=>{
-            console.log(item)
-            if(item.name===selectedGroup){
-                item.notes=[...item.notes,{id:Date.now(),note:note}]
-                console.log(item)
-            }
-        })
-        localStorage.setItem('groupsData',JSON.stringify(data))
-        setAllNotes([...allNotes,note])
-
+    const handleNoteSubmitClick = () => { 
+        console.log("clicked-1",note)
+        updateGroupNotes([...notes,{id:Date.now(),note:note}])
+        setNote('')
     }
 
     return (

@@ -19,10 +19,16 @@ const Modal = ({setIsModalOpen,allGroupName,setAllGroupName}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const allGroupsData=[...allGroupName,{id:Date.now(),name:groupName,color:selectedColor,notes:[]}]
-        setAllGroupName(allGroupsData)
-        localStorage.setItem('groupsData',JSON.stringify(allGroupsData))
-        setIsModalOpen(false)
+
+        if(groupName.length>=3){
+            const allGroupsData=[...allGroupName,{id:groupName,name:groupName,color:selectedColor}]
+            setAllGroupName(allGroupsData)
+            localStorage.setItem('groupsData',JSON.stringify(allGroupsData))
+            setIsModalOpen(false)
+        }
+        else{
+            alert("Group name should be greater than three")
+        }
     }
 
     return (

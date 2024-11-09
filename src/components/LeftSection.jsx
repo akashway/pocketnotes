@@ -31,6 +31,23 @@ const LeftSection = ({setSelectedGroup}) => {
         setSelectedGroup(name)
     }
 
+    const CalculateInitialsName=({name})=>{
+        let firstChar
+        let nextChar
+         for(let i=0;i<name.length;i++){
+             if(i===0){
+                 firstChar=name[0]
+             }
+             else{
+                 if(name[i]===" "){
+                     nextChar=name[i+1]
+                     break
+                 }
+             }
+         }
+         return `${firstChar}${nextChar}`
+    }
+
     useEffect(() => {
         console.log("useEffect",isModalOpen)
         if (isModalOpen) {
@@ -65,7 +82,7 @@ const LeftSection = ({setSelectedGroup}) => {
             {allGroupName.map((data)=>{
                 return(
                     <div style={{backgroundColor:data.color}} key={data.name} onClick={()=>handleSelectedGroup(data.name)}>
-                        {data.name}
+                       <CalculateInitialsName name={data.name}/> {data.name}
                     </div>
                 )
 

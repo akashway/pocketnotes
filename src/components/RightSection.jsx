@@ -4,16 +4,14 @@ import NoteTextArea from './NoteTextArea'
 import AllNotes from './AllNotes'
 import { useState } from 'react'
 
-const RightSection = ({ selectedGroup }) => {
-
-    const [allNotes,setAllNotes]=useState([])
+const RightSection = ({selectedGroup, notes, updateGroupNotes}) => {
 
     return (
         selectedGroup ?
             <div className={styles['right-container']}>
                 <p>{selectedGroup}</p>
-                <AllNotes allNotes={allNotes} setAllNotes={setAllNotes} selectedGroup={selectedGroup}/>
-                <NoteTextArea allNotes={allNotes} setAllNotes={setAllNotes} selectedGroup={selectedGroup} />
+                <AllNotes notes={notes}/>
+                <NoteTextArea notes={notes} updateGroupNotes={updateGroupNotes}/>
             </div>
             :
             <div className={`${styles['right-container']} ${styles['default-container']}`}>
