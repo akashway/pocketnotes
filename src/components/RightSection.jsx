@@ -19,7 +19,7 @@ const RightSection = ({ selectedGroup, notes, updateGroupNotes, homePage, setHom
         let flag = 0
         let firstChar
         let nextChar
-        for (let i = 0; i < name.length; i++) {
+        for (let i = 0; i < name.length-1; i++) {
             if (i === 0) {
                 firstChar = name[0].toUpperCase()
             }

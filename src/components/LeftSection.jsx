@@ -36,7 +36,7 @@ const LeftSection = ({ selectedGroup,setSelectedGroup,homePage,setHomePage }) =>
         let flag=0
         let firstChar
         let nextChar
-        for (let i = 0; i < name.length; i++) {
+        for (let i = 0; i < name.length-1; i++) {
             if (i === 0) {
                 firstChar = name[0].toUpperCase()
             }
@@ -47,10 +47,10 @@ const LeftSection = ({ selectedGroup,setSelectedGroup,homePage,setHomePage }) =>
                     break
                 }
             }
+        }
 
-            if(flag===0){
-                nextChar=name[1].toUpperCase()
-            }
+        if(flag===0){
+            nextChar=name[1].toUpperCase()
         }
         return (
             <span style={{ backgroundColor: color}} className="initials">
