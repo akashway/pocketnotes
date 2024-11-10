@@ -4,7 +4,7 @@ import { useState,useEffect, useDebugValue } from 'react'
 
 import Modal from './Modal'
 
-const LeftSection = ({ selectedGroup,setSelectedGroup }) => {
+const LeftSection = ({ selectedGroup,setSelectedGroup,homePage,setHomePage }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [allGroupName, setAllGroupName] = useState([])
@@ -28,6 +28,7 @@ const LeftSection = ({ selectedGroup,setSelectedGroup }) => {
 
     const handleSelectedGroup = (data) => {
         setSelectedGroup(data)
+        setHomePage(false)
     }
 
     const CalculateInitialsName = ({data}) => {
@@ -86,7 +87,7 @@ const LeftSection = ({ selectedGroup,setSelectedGroup }) => {
     }, [])
 
     return (
-        <div className={styles['left-container']}>
+        <div className={homePage?`${styles['left-container']}`:`${styles['left-container']} ${styles['left-container-deactive']}`}>
             <p className={styles.heading}>Pocket Notes</p>
 
 

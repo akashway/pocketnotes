@@ -7,6 +7,7 @@ import './index.css'
 const App = () => {
   const [selectedGroup, setSelectedGroup] = useState(null)
   const [groupNotes, setGroupNotes] = useState({});
+  const [homePage,setHomePage]=useState(true)
 
 
   const updateGroupNotes = (groupName, notes) => {
@@ -44,12 +45,18 @@ const App = () => {
       <LeftSection
         selectedGroup={selectedGroup}
         setSelectedGroup={setSelectedGroup}
+        homePage={homePage}
+        setHomePage={setHomePage}
       />
 
       <RightSection
         selectedGroup={selectedGroup}
         notes={groupNotes[selectedGroup?.name] || []}
-        updateGroupNotes={(notes) => updateGroupNotes(selectedGroup.name, notes)} />
+        updateGroupNotes={(notes) => updateGroupNotes(selectedGroup.name, notes)} 
+        homePage={homePage}
+        setHomePage={setHomePage}
+        />
+
     </div>
   )
 }

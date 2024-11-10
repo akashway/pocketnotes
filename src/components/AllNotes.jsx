@@ -25,10 +25,12 @@ const AllNotes = ({ notes }) => {
             hour12: true
         })
 
+        const [month, day, year] = date.split(',');
+
 
         return(
             <div>
-               { `${date}`}
+               { `${month} ${day}`}<span></span>{`${year}`}
             </div>
         )
     }
@@ -37,7 +39,7 @@ const AllNotes = ({ notes }) => {
             {notes.map(
                 (note) => (
                     <div className={styles.note} key={note.id}>
-                        {note.note}
+                        <div>{note.note}</div>
                         <TimestampToDate id={note.id}/>
                     </div>
                 )

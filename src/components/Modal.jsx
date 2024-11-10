@@ -81,7 +81,7 @@ const Modal = ({ setIsModalOpen, allGroupName, setAllGroupName }) => {
                     })}
                 </div>
 
-                <button type='submit' className={styles['create-button']} disabled={!isValidForm}>create</button>
+                <button type='submit' className={isValidForm?`${styles['create-button']}`:`${styles['create-button-disbale']}`} disabled={!isValidForm}>create</button>
             </form>
         </div>
     )

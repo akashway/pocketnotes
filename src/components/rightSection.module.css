@@ -8,30 +8,56 @@
 
 .right-container>div:first-child {
     flex: 1;
-    border: 2px solid red;
+    background-color: #001F8B;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
 }
 
 .right-container>div:nth-child(2) {
     flex: 10;
-    border: 2px solid yellow;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-   align-items: center;
+    align-items: center;
 
 }
 
 .right-container>form:nth-child(3) {
     flex: 4;
-    border: 2px solid red;
 }
 
-.note{
+.note {
     background-color: #FFFFFF;
     box-shadow: 0px 4px 20px 0px #00000040;
     width: 90%;
     margin: 1em 0 1em;
     padding: 1em;
+    border-radius: 5px;
+}
+
+.note>div:first-child {
+    margin-bottom: 1em;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.note>div:last-child {
+    text-align: end;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #353535;
+}
+
+.note>div span{
+    background: #353535;
+    width:5px;
+    height:5px;
+    display:inline-block;
+    border-radius:50%;
+    margin-left:0.5em
 }
 
 
@@ -110,12 +136,16 @@
     color: #9A9A9A;
 }
 
-.textbox button{
+.textbox button {
     position: absolute;
-    bottom:10%;
+    bottom: 10%;
     right: 5%;
     border: none;
     background: none;
+}
+
+.back-page{
+    display: none;
 }
 
 
@@ -123,6 +153,23 @@
 @media screen and (max-width:425px) {
     .default-container {
         display: none;
+    }
+
+    .left-container {
+       display: none;
+    }
+
+    .right-container {
+        width: 100%;
+        z-index: 2;
+    }
+
+    .right-container-deactive{
+        display: none;
+    }
+
+    .back-page{
+        display: inline-block;
     }
 
 }
