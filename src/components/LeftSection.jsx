@@ -1,14 +1,13 @@
 import styles from './leftSection.module.css'
 import addGroupIcon from '../assets/Group 24.png'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState,useEffect, useDebugValue } from 'react'
 
 import Modal from './Modal'
 
-const LeftSection = ({setSelectedGroup}) => {
+const LeftSection = ({ selectedGroup,setSelectedGroup }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [allGroupName,setAllGroupName]=useState([])
+    const [allGroupName, setAllGroupName] = useState([])
 
     const handleClick = (e) => {
         e.stopPropagation()
@@ -22,34 +21,45 @@ const LeftSection = ({setSelectedGroup}) => {
             console.log("inside")
             setIsModalOpen(false)
         }
-        else{
+        else {
             console.log("outside")
         }
     }
 
-    const handleSelectedGroup=(name)=>{
-        setSelectedGroup(name)
+    const handleSelectedGroup = (data) => {
+        setSelectedGroup(data)
     }
 
-    const CalculateInitialsName=({name})=>{
+    const CalculateInitialsName = ({data}) => {
+        const {name,color}=data
+        let flag=0
         let firstChar
         let nextChar
-         for(let i=0;i<name.length;i++){
-             if(i===0){
-                 firstChar=name[0]
-             }
-             else{
-                 if(name[i]===" "){
-                     nextChar=name[i+1]
-                     break
-                 }
-             }
-         }
-         return `${firstChar}${nextChar}`
+        for (let i = 0; i < name.length; i++) {
+            if (i === 0) {
+                firstChar = name[0].toUpperCase()
+            }
+            else {
+                if (name[i] === " ") {
+                    flag=1
+                    nextChar = name[i + 1].toUpperCase()
+                    break
+                }
+            }
+
+            if(flag===0){
+                nextChar=name[1].toUpperCase()
+            }
+        }
+        return (
+            <span style={{ backgroundColor: color}} className="initials">
+                {`${firstChar}${nextChar}`}
+            </span>
+        )
     }
 
     useEffect(() => {
-        console.log("useEffect",isModalOpen)
+        console.log("useEffect", isModalOpen)
         if (isModalOpen) {
             document.addEventListener('click', closeModel)
 
@@ -65,39 +75,44 @@ const LeftSection = ({setSelectedGroup}) => {
     }, [isModalOpen])
 
 
-    useEffect(()=>{
-        const data=JSON.parse(localStorage.getItem('groupsData'))
-        if(data){
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('groupsData'))
+        if (data) {
             setAllGroupName(data)
         }
-        else{
+        else {
             setAllGroupName([])
         }
-    },[])
+    }, [])
 
     return (
         <div className={styles['left-container']}>
-            <p>Pocket Notes</p>
+            <p className={styles.heading}>Pocket Notes</p>
 
-            {allGroupName.map((data)=>{
-                return(
-                    <div style={{backgroundColor:data.color}} key={data.name} onClick={()=>handleSelectedGroup(data.name)}>
-                       <CalculateInitialsName name={data.name}/> {data.name}
+
+            <div className={styles['group-name']}>
+
+            {allGroupName.map((data) => {
+                return (
+                    <div key={data.name} onClick={() => handleSelectedGroup(data)} className={styles[data.name===selectedGroup?.name?'active-group':""]}>
+                       <div><CalculateInitialsName data={data} /> {data.name}</div>
                     </div>
                 )
 
             })}
 
+            </div>
+
 
             {isModalOpen && (
-                <Modal 
-                setIsModalOpen={setIsModalOpen}
-                allGroupName={allGroupName}
-                setAllGroupName={setAllGroupName}
+                <Modal
+                    setIsModalOpen={setIsModalOpen}
+                    allGroupName={allGroupName}
+                    setAllGroupName={setAllGroupName}
                 />
             )}
 
-            <button onClick={handleClick}><img src={addGroupIcon} /></button>
+            <button onClick={handleClick} className={styles['add-button']}><img src={addGroupIcon} /></button>
         </div>
     )
 }

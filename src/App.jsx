@@ -10,39 +10,46 @@ const App = () => {
 
 
   const updateGroupNotes = (groupName, notes) => {
-    console.log("groupNotes",groupNotes)
-    const localStorageData=JSON.parse(localStorage.getItem('groupsData'))
-    localStorageData.map(data=>{
-      if(data.name===selectedGroup){
-        data[selectedGroup]=notes
+    console.log("groupNotes", groupNotes)
+    const localStorageData = JSON.parse(localStorage.getItem('groupsData'))
+    localStorageData.map(data => {
+      if (data.name === selectedGroup.name) {
+        data[selectedGroup.name] = notes
       }
-      console.log("after local storage data",data)
+      console.log("after local storage data", data)
     })
-    localStorage.setItem('groupsData',JSON.stringify(localStorageData))
-    setGroupNotes(() => ({[groupName]: notes }))
+    localStorage.setItem('groupsData', JSON.stringify(localStorageData))
+    setGroupNotes(() => ({ [groupName]: notes }))
   }
 
 
-  useEffect(()=>{
-      const localStorageData=JSON.parse(localStorage.getItem('groupsData'))
-      localStorageData.map(data=>{
-        if(data.name===selectedGroup){
-          console.log("a",selectedGroup)
-          console.log("b",data[selectedGroup])
-          setGroupNotes({[selectedGroup]:data[selectedGroup]})
+  useEffect(() => {
+    const localStorageData = JSON.parse(localStorage.getItem('groupsData'))
+    if (localStorageData && selectedGroup) {
+      localStorageData.map(data => {
+        if (data.name === selectedGroup.name) {
+          console.log("a", selectedGroup)
+          console.log("b", data[selectedGroup.name])
+          console.log(selectedGroup)
+          console.log({[selectedGroup.name]:"Akash"})
+          setGroupNotes({ [selectedGroup.name]: data[selectedGroup.name] })
         }
       })
-  },[selectedGroup])
+    }
+  }, [selectedGroup])
 
 
   return (
     <div className="main-container">
-      <LeftSection setSelectedGroup={setSelectedGroup} />
-      
+      <LeftSection
+        selectedGroup={selectedGroup}
+        setSelectedGroup={setSelectedGroup}
+      />
+
       <RightSection
         selectedGroup={selectedGroup}
-        notes={groupNotes[selectedGroup] || []}
-        updateGroupNotes={(notes) => updateGroupNotes(selectedGroup, notes)} />
+        notes={groupNotes[selectedGroup?.name] || []}
+        updateGroupNotes={(notes) => updateGroupNotes(selectedGroup.name, notes)} />
     </div>
   )
 }

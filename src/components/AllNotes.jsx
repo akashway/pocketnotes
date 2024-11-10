@@ -1,4 +1,6 @@
 import { useEffect } from "react"
+import styles from './rightSection.module.css'
+
 
 const AllNotes = ({ notes }) => {
 
@@ -6,16 +8,27 @@ const AllNotes = ({ notes }) => {
         const timestamp=id
         const dateObject= new Date(id)
 
-        const year=dateObject.getFullYear()
-        const month=dateObject.getMonth()+1
-        const date=dateObject.getDate()
-        const hours=dateObject.getHours()
-        const minutes=dateObject.getMinutes()
-        const seconds=dateObject.getSeconds()
+        // const year=dateObject.getFullYear()
+        // const month=dateObject.toLocaleString('default', { month: 'short' });
+        // const date=dateObject.getDate()
+        // const hours=dateObject.getHours()
+        // const minutes=dateObject.getMinutes()
+        // const seconds=dateObject.getSeconds()
+
+
+        const date=dateObject.toLocaleString('en-US',{
+            day:"2-digit",
+            month:"short",
+            year:"numeric",
+            hour:"numeric",
+            minute:"numeric",
+            hour12: true
+        })
+
 
         return(
             <div>
-               { `${date}/${month}/${year}--${hours}:${minutes}:${seconds}`}
+               { `${date}`}
             </div>
         )
     }
@@ -23,8 +36,8 @@ const AllNotes = ({ notes }) => {
         <div>
             {notes.map(
                 (note) => (
-                    <div key={note.id}>
-                        {note.note+"   "}
+                    <div className={styles.note} key={note.id}>
+                        {note.note}
                         <TimestampToDate id={note.id}/>
                     </div>
                 )
