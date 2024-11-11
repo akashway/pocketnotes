@@ -1,10 +1,10 @@
 import styles from './leftSection.module.css'
 import addGroupIcon from '../assets/Group 24.png'
-import { useState,useEffect, useDebugValue } from 'react'
+import { useState, useEffect, useDebugValue } from 'react'
 
 import Modal from './Modal'
 
-const LeftSection = ({ selectedGroup,setSelectedGroup,homePage,setHomePage }) => {
+const LeftSection = ({ selectedGroup, setSelectedGroup, homePage, setHomePage }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [allGroupName, setAllGroupName] = useState([])
@@ -31,29 +31,30 @@ const LeftSection = ({ selectedGroup,setSelectedGroup,homePage,setHomePage }) =>
         setHomePage(false)
     }
 
-    const CalculateInitialsName = ({data}) => {
-        const {name,color}=data
-        let flag=0
-        let firstChar
-        let nextChar
-        for (let i = 0; i < name.length-1; i++) {
-            if (i === 0) {
-                firstChar = name[0].toUpperCase()
-            }
-            else {
-                if (name[i] === " ") {
-                    flag=1
-                    nextChar = name[i + 1].toUpperCase()
-                    break
-                }
-            }
-        }
+    const CalculateInitialsName = ({ data }) => {
+        const { name, color } = data
+        let blankSpaceCount=0
+        let firstChar=""
+        let nextChar=""
 
-        if(flag===0){
-            nextChar=name[1].toUpperCase()
+        let nameWithoutExtraSpaces=name.replace(/\s+/g,' ').trim()
+
+        console.log(nameWithoutExtraSpaces)
+
+        for (let i = 0; i < nameWithoutExtraSpaces.length - 1; i++) {
+            if (nameWithoutExtraSpaces[i] === " ") {
+                blankSpaceCount=1
+                nextChar=nameWithoutExtraSpaces[i + 1].toUpperCase()
+                break
+            }
         }
+        if(blankSpaceCount===0 && nextChar===""){
+            nextChar=nameWithoutExtraSpaces[1].toUpperCase()
+        }
+        firstChar = nameWithoutExtraSpaces[0].toUpperCase()
+
         return (
-            <span style={{ backgroundColor: color}} className="initials">
+            <span style={{ backgroundColor: color }} className="initials">
                 {`${firstChar}${nextChar}`}
             </span>
         )
@@ -87,20 +88,20 @@ const LeftSection = ({ selectedGroup,setSelectedGroup,homePage,setHomePage }) =>
     }, [])
 
     return (
-        <div className={homePage?`${styles['left-container']}`:`${styles['left-container']} ${styles['left-container-deactive']}`}>
+        <div className={homePage ? `${styles['left-container']}` : `${styles['left-container']} ${styles['left-container-deactive']}`}>
             <p className={styles.heading}>Pocket Notes</p>
 
 
             <div className={styles['group-name']}>
 
-            {allGroupName.map((data) => {
-                return (
-                    <div key={data.name} onClick={() => handleSelectedGroup(data)} className={styles[data.name===selectedGroup?.name?'active-group':""]}>
-                       <div><CalculateInitialsName data={data} /> {data.name}</div>
-                    </div>
-                )
+                {allGroupName.map((data) => {
+                    return (
+                        <div key={data.name} onClick={() => handleSelectedGroup(data)} className={styles[data.name === selectedGroup?.name ? 'active-group' : ""]}>
+                            <div><CalculateInitialsName data={data} /> {data.name}</div>
+                        </div>
+                    )
 
-            })}
+                })}
 
             </div>
 

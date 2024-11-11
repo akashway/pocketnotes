@@ -25,27 +25,29 @@ const Modal = ({ setIsModalOpen, allGroupName, setAllGroupName }) => {
         let allGroupsData 
         let flag=false
 
+        let nameWithoutExtraSpaces=groupName.replace(/\s+/g,' ').trim()
+
         if (data){
             data.map((item)=>{
-                if(item.name===groupName){
+                if(item.name===nameWithoutExtraSpaces){
                     alert("name already avaialble")
                     flag=true
                 }
             })
         }
 
-        if (groupName.length >= 2 && !flag ) {
+        if (nameWithoutExtraSpaces.length >= 2 && !flag ) {
             if(data){
-                allGroupsData = [...data, { id: groupName, name: groupName, color: selectedColor }]
+                allGroupsData = [...data, { id: nameWithoutExtraSpaces, name: nameWithoutExtraSpaces, color: selectedColor }]
             }
             else{
-                allGroupsData = [...allGroupName, { id: groupName, name: groupName, color: selectedColor }]
+                allGroupsData = [...allGroupName, { id: nameWithoutExtraSpaces, name: nameWithoutExtraSpaces, color: selectedColor }]
             }
             setAllGroupName(allGroupsData)
             localStorage.setItem('groupsData', JSON.stringify(allGroupsData))
             setIsModalOpen(false)
         }
-        if(groupName.length <2) {
+        if(nameWithoutExtraSpaces.length <2) {
             alert("Group name should be greater than two charchater")
         }
     }

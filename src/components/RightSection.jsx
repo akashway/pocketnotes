@@ -16,25 +16,26 @@ const RightSection = ({ selectedGroup, notes, updateGroupNotes, homePage, setHom
 
 
     const CalculateInitialsName = ({ name, color }) => {
-        let flag = 0
-        let firstChar
-        let nextChar
-        for (let i = 0; i < name.length-1; i++) {
-            if (i === 0) {
-                firstChar = name[0].toUpperCase()
-            }
-            else {
-                if (name[i] === " ") {
-                    flag = 1
-                    nextChar = name[i + 1].toUpperCase()
-                    break
-                }
-            }
+        let blankSpaceCount=0
+        let firstChar=""
+        let nextChar=""
 
-            if (flag === 0) {
-                nextChar = name[1].toUpperCase()
+        let nameWithoutExtraSpaces=name.replace(/\s+/g,' ').trim()
+
+        console.log(nameWithoutExtraSpaces)
+
+        for (let i = 0; i < nameWithoutExtraSpaces.length - 1; i++) {
+            if (nameWithoutExtraSpaces[i] === " ") {
+                blankSpaceCount=1
+                nextChar=nameWithoutExtraSpaces[i + 1].toUpperCase()
+                break
             }
         }
+        if(blankSpaceCount===0 && nextChar===""){
+            nextChar=nameWithoutExtraSpaces[1].toUpperCase()
+        }
+        firstChar = nameWithoutExtraSpaces[0].toUpperCase()
+
         return (
             <span style={{ backgroundColor: color }} className="initials">
                 {`${firstChar}${nextChar}`}
