@@ -68,19 +68,19 @@ const Modal = ({ setIsModalOpen, allGroupName, setAllGroupName }) => {
                 <p>Create New group</p>
 
                 <div>
-                    Group Name
+                    <div>Group Name</div>
                     <input type="text" id="name" name="name" placeholder='Enter group name' value={groupName} onChange={handleChange} />
                 </div>
 
                 <div>
-                    Choose colour
+                    <div>Choose colour</div>
+                    <div>
                     {colorOption.map(color => {
                         return(
-                            <div key={color}>
-                            <button className={styles['color-option']} type="button" onClick={() => handleColorClick(color)} style={{ backgroundColor: color, border: `1px solid ${color}` }}></button>
-                            </div>
+                            <button className={styles['color-option']} type="button" key={color} onClick={() => handleColorClick(color)} style={{ backgroundColor: color, border: `1px solid ${color}` }}></button>                         
                         )
                     })}
+                    </div>
                 </div>
 
                 <button type='submit' className={isValidForm?`${styles['create-button']}`:`${styles['create-button-disbale']}`} disabled={!isValidForm}>create</button>

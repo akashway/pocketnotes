@@ -10,29 +10,27 @@ import { useState } from 'react'
 const RightSection = ({ selectedGroup, notes, updateGroupNotes, homePage, setHomePage }) => {
 
 
-    const backPageClickHandle=()=>{
+    const backPageClickHandle = () => {
         setHomePage(true)
     }
 
 
     const CalculateInitialsName = ({ name, color }) => {
-        let blankSpaceCount=0
-        let firstChar=""
-        let nextChar=""
+        let blankSpaceCount = 0
+        let firstChar = ""
+        let nextChar = ""
 
-        let nameWithoutExtraSpaces=name.replace(/\s+/g,' ').trim()
-
-        console.log(nameWithoutExtraSpaces)
+        let nameWithoutExtraSpaces = name.replace(/\s+/g, ' ').trim()
 
         for (let i = 0; i < nameWithoutExtraSpaces.length - 1; i++) {
             if (nameWithoutExtraSpaces[i] === " ") {
-                blankSpaceCount=1
-                nextChar=nameWithoutExtraSpaces[i + 1].toUpperCase()
+                blankSpaceCount = 1
+                nextChar = nameWithoutExtraSpaces[i + 1].toUpperCase()
                 break
             }
         }
-        if(blankSpaceCount===0 && nextChar===""){
-            nextChar=nameWithoutExtraSpaces[1].toUpperCase()
+        if (blankSpaceCount === 0 && nextChar === "") {
+            nextChar = nameWithoutExtraSpaces[1].toUpperCase()
         }
         firstChar = nameWithoutExtraSpaces[0].toUpperCase()
 
@@ -45,10 +43,13 @@ const RightSection = ({ selectedGroup, notes, updateGroupNotes, homePage, setHom
 
     return (
         selectedGroup ?
-            <div className={homePage?`${styles['right-container']} ${styles['right-container-deactive']}`:`${styles['right-container']}`}>
+            <div className={homePage ? `${styles['right-container']} ${styles['right-container-deactive']}` : `${styles['right-container']}`}>
                 <div className={styles['main-header']}>
-                    <div className={styles['back-page']} onClick={backPageClickHandle}>{homePage?"":<img src={arrowIcon}/>}</div>
-                    <CalculateInitialsName name={selectedGroup.name} color={selectedGroup.color} /> {selectedGroup.name}
+                    <div className={styles['back-page']} onClick={backPageClickHandle}>{homePage ? "" : <img src={arrowIcon} />}</div>
+                    <div>
+                        <CalculateInitialsName name={selectedGroup.name} color={selectedGroup.color} />
+                        {selectedGroup.name}
+                    </div>
                 </div>
                 <AllNotes notes={notes} />
                 <NoteTextArea notes={notes} updateGroupNotes={updateGroupNotes} />

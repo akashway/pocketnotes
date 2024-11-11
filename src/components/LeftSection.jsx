@@ -39,8 +39,6 @@ const LeftSection = ({ selectedGroup, setSelectedGroup, homePage, setHomePage })
 
         let nameWithoutExtraSpaces=name.replace(/\s+/g,' ').trim()
 
-        console.log(nameWithoutExtraSpaces)
-
         for (let i = 0; i < nameWithoutExtraSpaces.length - 1; i++) {
             if (nameWithoutExtraSpaces[i] === " ") {
                 blankSpaceCount=1
@@ -61,7 +59,6 @@ const LeftSection = ({ selectedGroup, setSelectedGroup, homePage, setHomePage })
     }
 
     useEffect(() => {
-        console.log("useEffect", isModalOpen)
         if (isModalOpen) {
             document.addEventListener('click', closeModel)
 
@@ -97,7 +94,10 @@ const LeftSection = ({ selectedGroup, setSelectedGroup, homePage, setHomePage })
                 {allGroupName.map((data) => {
                     return (
                         <div key={data.name} onClick={() => handleSelectedGroup(data)} className={styles[data.name === selectedGroup?.name ? 'active-group' : ""]}>
-                            <div><CalculateInitialsName data={data} /> {data.name}</div>
+                            <div>
+                            <CalculateInitialsName data={data} />
+                            <div>{data.name}</div>
+                             </div>
                         </div>
                     )
 
