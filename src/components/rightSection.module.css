@@ -45,6 +45,7 @@
     margin: 1em 0 1em;
     padding: 1em;
     border-radius: 5px;
+    word-wrap: break-word;
 }
 
 .note>div:first-child {
